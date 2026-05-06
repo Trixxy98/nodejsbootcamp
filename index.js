@@ -68,21 +68,26 @@ const data = fs.readFileSync('./starter/dev-data/data.json', 'utf-8');
 const dataObj = JSON.parse(data);
 
 const server = http.createServer((req, res) => {
-    const pathName = req.url;
+    const {query, pathname} = url.parse(req.url, true);
     // Overview page
-    if (pathName === '/' || pathName === '/overview') {
+    if (pathname === '/' || pathname === '/overview') {
       res.writeHead(200, { //menulis header response
         'Content-type': 'text/html'  
       })
 
-      const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el)).join(''); //replace template card with product data
+      const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el)).join(''); //
       const output = tempOverview.replace('{%PRODUCT_CARDS%}', cardsHtml); //replace product cards with product data
         res.end(output);
         // Product page
-    } else if (pathName === '/product') {
-        res.end('This is the product');
+    } else if (pathname === '/product') {
+      res.writeHead(200, { //menulis header response
+        'Content-type': 'text/html'  
+      });
+      const product = dataObj[query.id];  //ambil product data dari query id
+      const output = replaceTemplate(tempProduct, product);  //gantikan template product dengan product data
+        res.end(output);
         // API
-    } else if(pathName === '/apo'){
+    } else if(pathname === '/apo'){
 
       //async way
       //fs.readFile('./starter/dev-data/data.json', 'utf-8', (err, data) => {
