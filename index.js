@@ -9,7 +9,8 @@ const replaceTemplate = require('./starter/module/replaceTemplate');
 const textOut = `Ini adalah apa yang kita ketahui tentang avocado: ${textIn}.\nCreated on ${Date.now()}`;
 fs.writeFileSync('./starter/txt/output.txt', textOut);
 console.log('File dah ditulis!');
-*/
+*/  
+
 // Non-blocking, asynchronous way
 /*fs.readFile('./starter/txt/start.txt', 'utf-8', (err, data) => {
   console.log(data);
