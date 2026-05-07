@@ -1,7 +1,7 @@
 const fs = require('fs');
 const http = require('http'); //import http module
 const url = require('url'); //import url module
-
+const replaceTemplate = require('./starter/module/replaceTemplate');
 ////////////////////////////////////
 ////FILES
 // Blocking, synchronous way
@@ -46,19 +46,7 @@ server.listen(8000, '127.0.0.1', () => { //listen to port 8000
 /////////////////////////////////////
 //URLs (Hosting)
 //synchronous way
-const replaceTemplate = (temp, product) => {  //function to replace template with product data
-  let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName); 
-  output = output.replace(/{%IMAGE%}/g, product.image);
-  output = output.replace(/{%PRICE%}/g, product.price);
-  output = output.replace(/{%FROM%}/g, product.from);
-  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
-  output = output.replace(/{%QUANTITY%}/g, product.quantity);
-  output = output.replace(/{%DESCRIPTION%}/g, product.description);
-  output = output.replace(/{%ID%}/g, product.id);
 
-  if (!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
-  return output;
-}
 
 const tempOverview = fs.readFileSync('./starter/templates/template-overview.html', 'utf-8');
 const tempProduct = fs.readFileSync('./starter/templates/template-product.html', 'utf-8');
